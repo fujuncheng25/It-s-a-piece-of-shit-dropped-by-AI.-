@@ -5,6 +5,21 @@ import rag_server
 
 
 class RagServerTests(unittest.TestCase):
+    def test_knowledge_is_hardcoded_from_uploaded_word_file(self):
+        self.assertGreater(len(rag_server.UVA_KNOWLEDGE), 200)
+        self.assertTrue(
+            any(
+                doc["source"] == "College_Search_Guide(1).docx"
+                for doc in rag_server.UVA_KNOWLEDGE
+            )
+        )
+        self.assertTrue(
+            any(
+                "College/University Search Guide" in doc["text"]
+                for doc in rag_server.UVA_KNOWLEDGE
+            )
+        )
+
     def test_rank_knowledge_returns_relevant_docs(self):
         docs = rag_server._rank_knowledge("Who founded the University of Virginia?")
         self.assertTrue(docs)
