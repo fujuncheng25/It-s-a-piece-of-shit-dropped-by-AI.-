@@ -56,8 +56,8 @@ UVA_KNOWLEDGE = [
         "title": "Campus food reputation",
         "source": "https://dining.virginia.edu/",
         "text": (
-            "According to UVA Dining's official site, the university provides dining halls, meal plans, and nutrition resources. "
-            "Whether the food is 'good' is subjective for each student, but UVA has a large on-campus dining program with many options."
+            "UVA Dining's official site says the university provides dining halls, meal plans, and nutrition resources. "
+            "This project treats whether food is 'good' as subjective and answers with those official dining-program facts."
         ),
     },
     {
