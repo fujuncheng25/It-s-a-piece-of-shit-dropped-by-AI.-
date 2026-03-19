@@ -5,31 +5,26 @@ import rag_server
 
 
 class RagServerTests(unittest.TestCase):
-    def test_get_root_returns_health_payload(self):
+    @staticmethod
+    def _invoke_do_get(path):
         captured = {}
 
         class DummyHandler:
-            path = "/"
-
             def _send_json(self, payload, status=200):
                 captured["payload"] = payload
                 captured["status"] = status
 
+        DummyHandler.path = path
         rag_server.RAGRequestHandler.do_GET(DummyHandler())
+        return captured
+
+    def test_get_root_returns_health_payload(self):
+        captured = self._invoke_do_get("/")
         self.assertEqual(captured["status"], 200)
         self.assertEqual(captured["payload"]["status"], "ok")
 
     def test_get_unknown_route_still_returns_not_found(self):
-        captured = {}
-
-        class DummyHandler:
-            path = "/missing"
-
-            def _send_json(self, payload, status=200):
-                captured["payload"] = payload
-                captured["status"] = status
-
-        rag_server.RAGRequestHandler.do_GET(DummyHandler())
+        captured = self._invoke_do_get("/missing")
         self.assertEqual(captured["status"], 404)
         self.assertEqual(captured["payload"]["error"], "Not found")
 
