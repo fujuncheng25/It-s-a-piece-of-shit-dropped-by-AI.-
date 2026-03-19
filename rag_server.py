@@ -1284,7 +1284,7 @@ class RAGRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:  # noqa: N802
-        if self.path == "/health":
+        if self.path in {"/", "/health"}:
             self._send_json({"status": "ok", "service": "uva-rag", "port": PORT})
             return
         self._send_json({"error": "Not found"}, status=404)
