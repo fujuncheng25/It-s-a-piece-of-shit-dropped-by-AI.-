@@ -56,8 +56,8 @@ UVA_KNOWLEDGE = [
         "title": "Campus food reputation",
         "source": "https://dining.virginia.edu/",
         "text": (
-            "UVA Dining is generally considered strong by students and external college guides, and it is often mentioned "
-            "as having good campus food options compared with peer schools."
+            "UVA Dining provides multiple dining halls, meal plans, and nutrition resources. Whether the food is 'good' "
+            "is subjective for each student, but UVA has a large on-campus dining program with many options."
         ),
     },
     {

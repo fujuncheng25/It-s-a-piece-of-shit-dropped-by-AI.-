@@ -36,6 +36,12 @@ class RagServerTests(unittest.TestCase):
         self.assertIn("financial aid", combined)
         self.assertIn("need", combined)
 
+    def test_rank_knowledge_matches_food_question(self):
+        docs = rag_server._rank_knowledge("Is food good at UVA?")
+        self.assertTrue(docs)
+        self.assertEqual("Campus food reputation", docs[0]["title"])
+        self.assertIn("subjective", docs[0]["text"].lower())
+
 
 if __name__ == "__main__":
     unittest.main()
