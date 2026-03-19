@@ -52,6 +52,30 @@ UVA_KNOWLEDGE = [
             "UVA athletics teams are called the Cavaliers and compete in NCAA Division I, primarily in the Atlantic Coast Conference."
         ),
     },
+    {
+        "title": "Campus food reputation",
+        "source": "https://dining.virginia.edu/",
+        "text": (
+            "UVA Dining is generally considered strong by students and external college guides, and it is often mentioned "
+            "as having good campus food options compared with peer schools."
+        ),
+    },
+    {
+        "title": "SAT and ACT policy",
+        "source": "https://admission.virginia.edu/admission/deadlines-instructions",
+        "text": (
+            "UVA uses a test-optional first-year admissions policy, so SAT or ACT scores are optional rather than required "
+            "for applicants in the covered admission cycles."
+        ),
+    },
+    {
+        "title": "Financial aid and admissions",
+        "source": "https://sfs.virginia.edu/financial-aid-new-applicants",
+        "text": (
+            "UVA financial aid is related to a student's demonstrated financial need. For U.S. citizens and permanent residents, "
+            "UVA states admissions are need-blind, meaning ability to pay is not used in the admission decision."
+        ),
+    },
 ]
 
 STOPWORDS = {

@@ -24,6 +24,18 @@ class RagServerTests(unittest.TestCase):
         result = rag_server.answer_question("   ")
         self.assertIn("error", result)
 
+    def test_rank_knowledge_matches_sat_optional_question(self):
+        docs = rag_server._rank_knowledge("Is SAT required or optional at UVA?")
+        self.assertTrue(docs)
+        self.assertIn("test-optional", docs[0]["text"].lower())
+
+    def test_rank_knowledge_matches_financial_aid_question(self):
+        docs = rag_server._rank_knowledge("Is financial aid related to need at UVA?")
+        self.assertTrue(docs)
+        combined = " ".join(doc["text"] for doc in docs).lower()
+        self.assertIn("financial aid", combined)
+        self.assertIn("need", combined)
+
 
 if __name__ == "__main__":
     unittest.main()
