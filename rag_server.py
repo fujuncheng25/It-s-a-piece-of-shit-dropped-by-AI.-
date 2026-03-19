@@ -1304,8 +1304,9 @@ class RAGRequestHandler(BaseHTTPRequestHandler):
 <body>
   <h1>UVA RAG</h1>
   <p>Ask a question about UVA.</p>
+  <label for="question">Question</label><br />
   <textarea id="question" rows="4" cols="60" placeholder="Type your question..."></textarea><br />
-  <button id="askBtn" type="button">Ask</button>
+  <button id="askBtn" type="button" aria-label="Submit question">Ask</button>
   <pre id="result"></pre>
   <script>
     const button = document.getElementById("askBtn");
@@ -1320,9 +1321,13 @@ class RAGRequestHandler(BaseHTTPRequestHandler):
           body: JSON.stringify({question: questionInput.value})
         });
         const data = await response.json();
+        if (!response.ok) {
+          result.textContent = "Error " + response.status + ": " + (data.error || "Request failed.");
+          return;
+        }
         result.textContent = JSON.stringify(data, null, 2);
       } catch (err) {
-        result.textContent = "Request failed.";
+        result.textContent = "Request failed: " + (err?.message || "Unknown error");
       }
     });
   </script>

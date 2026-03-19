@@ -6,7 +6,7 @@ import rag_server
 
 class RagServerTests(unittest.TestCase):
     @staticmethod
-    def _invoke_do_get(path):
+    def _call_do_get(path):
         captured = {}
 
         class DummyHandler:
@@ -23,17 +23,18 @@ class RagServerTests(unittest.TestCase):
         return captured
 
     def test_get_root_returns_web_ui(self):
-        captured = self._invoke_do_get("/")
+        captured = self._call_do_get("/")
         self.assertEqual(captured["status"], 200)
         self.assertIn("<title>UVA RAG</title>", captured["html"])
+        self.assertIn("<label for=\"question\">Question</label>", captured["html"])
 
     def test_get_health_returns_health_payload(self):
-        captured = self._invoke_do_get("/health")
+        captured = self._call_do_get("/health")
         self.assertEqual(captured["status"], 200)
         self.assertEqual(captured["payload"]["status"], "ok")
 
     def test_get_unknown_route_still_returns_not_found(self):
-        captured = self._invoke_do_get("/missing")
+        captured = self._call_do_get("/missing")
         self.assertEqual(captured["status"], 404)
         self.assertEqual(captured["payload"]["error"], "Not found")
 
