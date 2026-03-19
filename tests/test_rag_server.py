@@ -10,6 +10,10 @@ class RagServerTests(unittest.TestCase):
         captured = {}
 
         class DummyHandler:
+            def _send_html(self, html, status=200):
+                captured["html"] = html
+                captured["status"] = status
+
             def _send_json(self, payload, status=200):
                 captured["payload"] = payload
                 captured["status"] = status
@@ -18,8 +22,13 @@ class RagServerTests(unittest.TestCase):
         rag_server.RAGRequestHandler.do_GET(DummyHandler())
         return captured
 
-    def test_get_root_returns_health_payload(self):
+    def test_get_root_returns_web_ui(self):
         captured = self._invoke_do_get("/")
+        self.assertEqual(captured["status"], 200)
+        self.assertIn("<title>UVA RAG</title>", captured["html"])
+
+    def test_get_health_returns_health_payload(self):
+        captured = self._invoke_do_get("/health")
         self.assertEqual(captured["status"], 200)
         self.assertEqual(captured["payload"]["status"], "ok")
 
