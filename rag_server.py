@@ -1275,6 +1275,14 @@ def answer_question(question: str) -> Dict:
 
 
 class RAGRequestHandler(BaseHTTPRequestHandler):
+    def _send_html(self, html: str, status: int = 200) -> None:
+        body = html.encode("utf-8")
+        self.send_response(status)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _send_json(self, payload: Dict, status: int = 200) -> None:
         body = json.dumps(payload).encode("utf-8")
         self.send_response(status)
@@ -1284,6 +1292,49 @@ class RAGRequestHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:  # noqa: N802
+        if self.path == "/":
+            self._send_html(
+                """<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>UVA RAG</title>
+</head>
+<body>
+  <h1>UVA RAG</h1>
+  <p>Ask a question about UVA.</p>
+  <label for="question">Question</label><br />
+  <textarea id="question" rows="4" cols="60" placeholder="Type your question..."></textarea><br />
+  <button id="askBtn" type="button" aria-label="Submit question">Ask</button>
+  <pre id="result"></pre>
+  <script>
+    const button = document.getElementById("askBtn");
+    const questionInput = document.getElementById("question");
+    const result = document.getElementById("result");
+    button.addEventListener("click", async () => {
+      result.textContent = "Loading...";
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({question: questionInput.value})
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          result.textContent = "Error " + response.status + ": " + (data.error || "Request failed.");
+          return;
+        }
+        result.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        result.textContent = "Request failed: " + (err?.message || "Unknown error");
+      }
+    });
+  </script>
+</body>
+</html>"""
+            )
+            return
         if self.path == "/health":
             self._send_json({"status": "ok", "service": "uva-rag", "port": PORT})
             return
