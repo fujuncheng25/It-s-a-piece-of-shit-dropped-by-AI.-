@@ -1133,6 +1133,30 @@ UVA_KNOWLEDGE = [
         "source": "College_Search_Guide(1).docx",
         "text": 'John Paul Jones Arena295 Massie RoadCharlottesville, VA 22904 (Room 154)P.O. Box 400853Phone: 434-982-5500',
     },
+    {
+        "title": "Campus food reputation",
+        "source": "https://dining.virginia.edu/",
+        "text": (
+            "UVA Dining's official site says the university provides dining halls, meal plans, and nutrition resources. "
+            "This project treats whether food is 'good' as subjective and answers with those official dining-program facts."
+        ),
+    },
+    {
+        "title": "SAT and ACT policy",
+        "source": "https://admission.virginia.edu/admission/deadlines-instructions",
+        "text": (
+            "UVA uses a test-optional first-year admissions policy, so SAT or ACT scores are optional rather than required "
+            "for applicants in the covered admission cycles."
+        ),
+    },
+    {
+        "title": "Financial aid and admissions",
+        "source": "https://sfs.virginia.edu/financial-aid-new-applicants",
+        "text": (
+            "UVA financial aid is related to a student's demonstrated financial need. For U.S. citizens and permanent residents, "
+            "UVA states admissions are need-blind, meaning ability to pay is not used in the admission decision."
+        ),
+    },
 ]
 
 STOPWORDS = {
